@@ -24,6 +24,7 @@ routes.get('/bedroom', BedroomController.index)
 
 routes.use(authMiddlewares)
 routes.post('/unit', upload.single('file'), UnitController.store)
+routes.put('/unit/:id', upload.single('file'), UnitController.update)
 
 routes.post('/bedroom', upload.array('file', 3), BedroomController.store)
 

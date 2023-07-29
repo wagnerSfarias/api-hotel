@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import Unit from '../models/Unit'
+import User from '../models/User'
 
 class UnitController {
   async store(request, response) {
@@ -12,8 +13,17 @@ class UnitController {
     } catch (err) {
       return response.status(400).json({ error: err.errors })
     }
+
     const { filename: url_banner } = request.file
     const { name, address } = request.body
+
+    const categoryExists = await Unit.findOne({
+      where: { name },
+    })
+
+    if (categoryExists) {
+      return response.status(400).json({ error: 'Unit already exist' })
+    }
 
     const unit = await Unit.create({ name, address, url_banner })
 
@@ -24,6 +34,53 @@ class UnitController {
     const units = await Unit.findAll()
 
     return response.json(units)
+  }
+
+  async update(request, response) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      address: Yup.string(),
+    })
+
+    try {
+      await schema.validateSync(request.body, { abortEarly: false })
+    } catch (err) {
+      return response.status(400).json({ error: err.errors })
+    }
+
+    const { admin: isAdmin } = await User.findByPk(request.userId)
+
+    if (!isAdmin) {
+      return response.status(401).json()
+    }
+
+    const { name, address } = request.body
+    const { id } = request.params
+
+    let path
+    if (request.file) {
+      path = request.file.filename
+    }
+
+    const unit = await Unit.findByPk(id)
+
+    if (!unit) {
+      return response
+        .status(401)
+        .json({ error: 'Make sure your unit ID is correct' })
+    }
+
+    await Unit.update(
+      {
+        name,
+        address,
+        url_banner: path,
+      },
+      {
+        where: { id },
+      },
+    )
+    return response.json({ message: 'changed unit' })
   }
 }
 
