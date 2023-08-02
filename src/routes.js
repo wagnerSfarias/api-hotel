@@ -32,5 +32,6 @@ routes.put('/bedroom/:id', upload.array('file', 3), BedroomController.update)
 
 routes.post('/reservation', ReservationController.store)
 routes.get('/reservations', ReservationController.index)
+routes.delete('/reservation/:id', ReservationController.delete)
 
 export default routes
