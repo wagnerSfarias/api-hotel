@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 import Bedroom from '../models/Bedroom'
 import Unit from '../models/Unit'
+import User from '../models/User'
 
 class BedroomController {
   async store(request, response) {
@@ -48,6 +49,71 @@ class BedroomController {
     })
 
     return response.json(units)
+  }
+
+  async show(request, response) {
+    const { id } = request.params
+
+    const bedroom = await Bedroom.findByPk(id)
+
+    if (!bedroom) {
+      return response
+        .status(401)
+        .json({ error: 'Make sure your bedroom ID is correct' })
+    }
+    return response.status(200).json(bedroom)
+  }
+
+  async update(request, response) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      price: Yup.number(),
+      qtd_people: Yup.number(),
+      unit_id: Yup.number(),
+    })
+
+    try {
+      await schema.validateSync(request.body, { abortEarly: false })
+    } catch (err) {
+      return response.status(400).json({ error: err.errors })
+    }
+
+    const { admin: isAdmin } = await User.findByPk(request.userId)
+
+    if (!isAdmin) {
+      return response.status(401).json({ error: 'no authorization' })
+    }
+
+    const { name, price, qtd_people, unit_id } = request.body
+
+    const { id } = request.params
+
+    const url_banner = request.files[0].filename
+    const url_left = request.files[1].filename
+    const url_right = request.files[2].filename
+
+    const bedroom = await Bedroom.findByPk(id)
+
+    if (!bedroom) {
+      return response
+        .status(401)
+        .json({ error: 'Make sure your bedroom ID is correct' })
+    }
+    await Bedroom.update(
+      {
+        name,
+        price,
+        qtd_people,
+        url_banner,
+        url_left,
+        url_right,
+        unit_id,
+      },
+      {
+        where: { id },
+      },
+    )
+    return response.status(200).json()
   }
 }
 

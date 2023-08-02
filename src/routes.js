@@ -21,12 +21,14 @@ routes.post('/sessions', SessionController.store)
 routes.get('/units', UnitController.index)
 
 routes.get('/bedroom', BedroomController.index)
+routes.get('/bedroom/:id', BedroomController.show)
 
 routes.use(authMiddlewares)
 routes.post('/unit', upload.single('file'), UnitController.store)
 routes.put('/unit/:id', upload.single('file'), UnitController.update)
 
 routes.post('/bedroom', upload.array('file', 3), BedroomController.store)
+routes.put('/bedroom/:id', upload.array('file', 3), BedroomController.update)
 
 routes.post('/reservation', ReservationController.store)
 routes.get('/reservations', ReservationController.index)
