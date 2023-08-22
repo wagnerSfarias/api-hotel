@@ -18,6 +18,11 @@ class BedroomController {
       return response.status(400).json({ error: err.errors })
     }
 
+    const { admin: isAdmin } = await User.findByPk(request.userId)
+    if (!isAdmin) {
+      return response.status(401).json()
+    }
+
     const url_banner = request.files[0].filename
     const url_left = request.files[1].filename
     const url_right = request.files[2].filename
