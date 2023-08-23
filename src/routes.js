@@ -20,7 +20,7 @@ routes.post('/sessions', SessionController.store)
 
 routes.get('/units', UnitController.index)
 
-routes.get('/bedroom', BedroomController.index)
+routes.get('/bedroom/:id', BedroomController.index)
 routes.get('/bedroom/:id', BedroomController.show)
 
 routes.use(authMiddlewares)

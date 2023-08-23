@@ -44,6 +44,7 @@ class BedroomController {
 
   async index(request, response) {
     const units = await Bedroom.findAll({
+      where: { unit_id: request.params.id },
       include: [
         {
           model: Unit,
