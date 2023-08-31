@@ -34,9 +34,6 @@ class ReservationController {
 
   async index(request, response) {
     const reservation = await Reservation.findAll({
-      where: {
-        user_id: request.userId,
-      },
       attributes: ['id', 'check_in', 'check_out'],
       include: [
         {
