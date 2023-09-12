@@ -44,7 +44,7 @@ class ReservationController {
         {
           model: Bedroom,
           as: 'bedroom',
-          attributes: ['name', 'url_banner'],
+          attributes: ['name', 'price'],
           include: {
             model: Unit,
             as: 'unidade',
