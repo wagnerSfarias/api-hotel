@@ -19,7 +19,7 @@ class ListReservationByUserController {
         {
           model: Bedroom,
           as: 'bedroom',
-          attributes: ['name', 'url_banner'],
+          attributes: ['name', 'url_banner', 'url'],
           include: {
             model: Unit,
             as: 'unidade',
