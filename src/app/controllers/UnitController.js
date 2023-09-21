@@ -22,11 +22,11 @@ class UnitController {
     const { filename: url_banner } = request.file
     const { name, address } = request.body
 
-    const categoryExists = await Unit.findOne({
+    const unitExists = await Unit.findOne({
       where: { name },
     })
 
-    if (categoryExists) {
+    if (unitExists) {
       return response.status(400).json({ error: 'Unit already exist' })
     }
 
@@ -73,6 +73,13 @@ class UnitController {
       return response
         .status(401)
         .json({ error: 'Make sure your unit ID is correct' })
+    }
+    const unitExists = await Unit.findOne({
+      where: { name },
+    })
+
+    if (unitExists) {
+      return response.status(400).json({ error: 'Unit already exist' })
     }
 
     await Unit.update(
