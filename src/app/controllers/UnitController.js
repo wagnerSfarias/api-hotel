@@ -74,12 +74,15 @@ class UnitController {
         .status(401)
         .json({ error: 'Make sure your unit ID is correct' })
     }
-    const unitExists = await Unit.findOne({
-      where: { name },
-    })
 
-    if (unitExists) {
-      return response.status(400).json({ error: 'Unit already exist' })
+    if (unit.name !== name) {
+      const unitExists = await Unit.findOne({
+        where: { name },
+      })
+
+      if (unitExists) {
+        return response.status(400).json({ error: 'Unit already exist' })
+      }
     }
 
     await Unit.update(
