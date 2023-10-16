@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 import Unit from '../models/Unit'
 import User from '../models/User'
+import { unlink } from 'node:fs'
 
 class UnitController {
   async store(request, response) {
@@ -27,6 +28,13 @@ class UnitController {
     })
 
     if (unitExists) {
+      unlink(`uploads/${url_banner}`, (err) => {
+        if (err) {
+          console.log('Erro', err)
+        }
+        console.log(`${url_banner}, was deleted`)
+      })
+
       return response.status(400).json({ error: 'Unit already exist' })
     }
 
