@@ -93,9 +93,18 @@ class BedroomController {
 
     const { id } = request.params
 
-    const url_banner = request.files[0].filename
-    const url_left = request.files[1].filename
-    const url_right = request.files[2].filename
+    let url_banner
+    let url_left
+    let url_right
+    if (request.files.image) {
+      url_banner = request.files.image[0].filename
+    }
+    if (request.files.image_l) {
+      url_left = request.files.image_l[0].filename
+    }
+    if (request.files.image_r) {
+      url_right = request.files.image_r[0].filename
+    }
 
     const bedroom = await Bedroom.findByPk(id)
 

@@ -31,7 +31,15 @@ routes.put('/unit/:id', upload.single('file'), UnitController.update)
 
 routes.get('/bedrooms', BedroomController.index)
 routes.post('/bedroom', upload.array('file', 3), BedroomController.store)
-routes.put('/bedroom/:id', upload.array('file', 3), BedroomController.update)
+routes.put(
+  '/bedroom/:id',
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'image_l', maxCount: 1 },
+    { name: 'image_r', maxCount: 1 },
+  ]),
+  BedroomController.update,
+)
 
 routes.post('/reservation', ReservationController.store)
 routes.get('/reservations', ReservationController.index)
