@@ -20,6 +20,10 @@ class UnitController {
       return response.status(401).json()
     }
 
+    if (!request.file) {
+      return response.status(400).json({ error: 'file is a required field' })
+    }
+
     const { filename: url_banner } = request.file
     const { name, address } = request.body
 
