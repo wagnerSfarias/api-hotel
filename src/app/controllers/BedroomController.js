@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 import Bedroom from '../models/Bedroom'
 import Unit from '../models/Unit'
 import User from '../models/User'
+import { unlink } from 'node:fs'
 
 class BedroomController {
   async store(request, response) {
@@ -21,6 +22,21 @@ class BedroomController {
     const { admin: isAdmin } = await User.findByPk(request.userId)
     if (!isAdmin) {
       return response.status(401).json()
+    }
+
+    if (request.files.length !== 3) {
+      request.files.map((file) => {
+        return unlink(`uploads/${file.filename}`, (err) => {
+          if (err) {
+            console.log('Erro', err)
+          }
+          console.log(`${file.filename}, was deleted`)
+        })
+      })
+
+      return response
+        .status(400)
+        .json({ error: 'three "file" fields are required' })
     }
 
     const url_banner = request.files[0].filename
