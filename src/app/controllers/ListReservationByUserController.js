@@ -27,6 +27,7 @@ class ListReservationByUserController {
           },
         },
       ],
+      order: [['check_in', 'ASC']],
     })
 
     return response.json(reservation)

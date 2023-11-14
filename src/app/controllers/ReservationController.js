@@ -52,6 +52,7 @@ class ReservationController {
           },
         },
       ],
+      order: [['check_in', 'ASC']],
     })
 
     return response.json(reservation)
