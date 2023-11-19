@@ -1,5 +1,4 @@
 import Sequelize from 'sequelize'
-import configDatabase from '../config/database'
 
 import User from '../app/models/User'
 import Unit from '../app/models/Unit'
@@ -14,7 +13,9 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(configDatabase)
+    this.connection = new Sequelize(
+      'postgresql://postgres:CGA*bCge*Cc4DA2c5F6-GF4f3B53f6F5@monorail.proxy.rlwy.net:59905/railway',
+    )
     models
       .map((model) => model.init(this.connection))
       .map(
