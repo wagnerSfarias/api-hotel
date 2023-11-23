@@ -4,6 +4,7 @@ import User from '../app/models/User'
 import Unit from '../app/models/Unit'
 import Bedroom from '../app/models/Bedroom'
 import Reservation from '../app/models/Reservation'
+import configDatabase from '../config/database'
 
 const models = [User, Unit, Bedroom, Reservation]
 
@@ -13,7 +14,7 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(process.env.URL_POSTGRES)
+    this.connection = new Sequelize(configDatabase)
     models
       .map((model) => model.init(this.connection))
       .map(

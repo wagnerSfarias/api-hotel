@@ -10,7 +10,7 @@ class Unit extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `https://api-hotel.up.railway.app/unit-file/${this.url_banner}`
+            return `http://localhost:3001/unit-file/${this.url_banner}`
           },
         },
       },

@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Bedrooms', {
+    await queryInterface.createTable('bedrooms', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -44,7 +44,7 @@ module.exports = {
       },
       unit_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Units', key: 'id' },
+        references: { model: 'units', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: false,
@@ -53,6 +53,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Bedrooms')
+    await queryInterface.dropTable('bedrooms')
   },
 }

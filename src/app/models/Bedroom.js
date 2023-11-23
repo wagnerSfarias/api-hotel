@@ -13,19 +13,19 @@ class Bedroom extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `https://api-hotel.up.railway.app/bedroom-file/${this.url_banner}`
+            return `http://localhost:3001/bedroom-file/${this.url_banner}`
           },
         },
         url_l: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `https://api-hotel.up.railway.app/bedroom-file/${this.url_left}`
+            return `http://localhost:3001/bedroom-file/${this.url_left}`
           },
         },
         url_r: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `https://api-hotel.up.railway.app/bedroom-file/${this.url_right}`
+            return `http://localhost:3001/bedroom-file/${this.url_right}`
           },
         },
       },

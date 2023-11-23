@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reservations', {
+    await queryInterface.createTable('reservations', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -28,14 +28,14 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.UUID,
-        references: { model: 'Users', key: 'id' },
+        references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: false,
       },
       bedroom_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Bedrooms', key: 'id' },
+        references: { model: 'bedrooms', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: false,
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Reservations')
+    await queryInterface.dropTable('reservations')
   },
 }
