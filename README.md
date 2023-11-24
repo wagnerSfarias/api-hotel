@@ -11,7 +11,7 @@ API desenvolvida com nodeJS, focada no sistema para um hotel tanto para parte ad
 
 #### Criar usuário
 
-```http
+```bash
   POST /user
 ```
  As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -25,7 +25,7 @@ API desenvolvida com nodeJS, focada no sistema para um hotel tanto para parte ad
 
 #### Fazer Logon
 
-```http
+```bash
   POST /sessions
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -50,12 +50,12 @@ Resposta :
 
 #### Retorna todas as unidades
 
-```http
+```bash
   GET /units
 ```
 #### Retorna os quartos daquela unidade
 
-```http
+```bash
   GET /unit/bedrooms?unit_id=2
 ```
 
@@ -65,7 +65,7 @@ Resposta :
 
 #### Retorna os detalhes de um quarto
 
-```http
+```bash
   GET /bedroom/${id}
 ```
 
@@ -94,7 +94,7 @@ export default {
 
 #### Criar unidade
 
-```http
+```bash
   POST /unit
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -107,7 +107,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 #### Editar unidade
 
-```http
+```bash
   PUT /unit/${id}
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -122,13 +122,13 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 #### Retorna todas os quartos
 
-```http
+```bash
   GET /bedrooms
 ```
 
 #### Criar quarto
 
-```http
+```bash
   POST /bedroom
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -145,7 +145,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 #### Editar quarto
 
-```http
+```bash
   PUT /bedroom/${id}
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -164,7 +164,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 #### Criar reservas
 
-```http
+```bash
   POST /reservation
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
@@ -179,13 +179,13 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 #### Retorna todas as reservas
 
-```http
+```bash
   GET /reservations
 ```
 
 #### Retorna as reservas do usuário
 
-```http
+```bash
   GET /user/reservations
 ```
 
@@ -195,7 +195,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 #### Deletar reserva
 
-```http
+```bash
   DELETE /reservation/${id}
 ```
 
@@ -206,7 +206,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 ## Rodando localmente
 
-Antes de começar, você precisa ter o Git, Node, Docker instalados.
+Antes de começar, você precisa ter o Git, Node e Docker instalados.
 
 yarn - instalação opcional.
 
@@ -243,7 +243,7 @@ docker run --name hotel-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d p
 ```bash
 npx sequelize db:migrate ou yarn sequelize db:migrate
 ```
-**Observação**: Lembre-se que é necessário criar um banco de dados antes e inserir as informações do seu banco, dentro de ./src/config/database.js .
+**Observação**: Lembre-se que é necessário criar um banco de dados antes e em seguida insira as informações do seu banco, dentro de ./src/config/database.js .
 
 Exemplo:
 
@@ -268,7 +268,7 @@ module.exports = {
   npm run dev ou yarn dev
 ```
 
-baseUrl : http://localhost:3001
+**baseUrl** : http://localhost:3001
 
 
 ## Tecnologias utilizadas 👨🏻‍💻
