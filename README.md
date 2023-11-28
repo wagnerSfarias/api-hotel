@@ -59,9 +59,12 @@ Resposta :
   GET /unit/bedrooms?unit_id=2
 ```
 
+
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `unit_id`      | `integer` | **Obrigatório**. O ID da unidade que você deseja. |
+
+**Observação**: O id deve ser passado na requisição como query params.
 
 #### Retorna os detalhes de um quarto
 
@@ -72,6 +75,8 @@ Resposta :
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `integer` | **Obrigatório**. O ID do quarto que você deseja. |
+
+**Observação**: O id deve ser passado na requisição como route params.
 
 ### TOKEN 
 
@@ -119,6 +124,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 | `address`      | `string` | **Opcional**. |
 | `file`      | `file` | **Opcional**. Arquivos de extensão .png .jpg .jpeg. |
 
+**Observação**: O id deve ser passado na requisição como route params.
 
 #### Retorna todas os quartos
 
@@ -160,6 +166,8 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 | `image_l`      | `file` | **Opcional**. Arquivos de extensão .png .jpg .jpeg. |
 | `image_r`      | `file` | **Opcional**. Arquivos de extensão .png .jpg .jpeg. |
 | `unit_id`      | `integer` | **Opcional**.  O ID da unidade. |
+
+**Observação**: O id deve ser passado na requisição como route params.
 
 
 #### Criar reservas
@@ -203,6 +211,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `string` |  **Obrigatório**. O ID da reserva que deseja deletar. |
 
+**Observação**: O id deve ser passado na requisição como route params.
 
 ## Rodando localmente
 
