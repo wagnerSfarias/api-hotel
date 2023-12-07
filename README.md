@@ -1,11 +1,29 @@
 
 <h1 align="center">API Hotel</h1>
 
-
 ## Documentação da API
                     
+API desenvolvida com nodeJS, focada no sistema para hotéis que contém funcionalidades para funcionários e hóspedes. 
 
-API desenvolvida com nodeJS, focada no sistema para um hotel tanto para parte administrativa quanto para o usuário.
+## Funcionalidades
+
+### Hóspedes
+
+- Criar usuário
+- Logar
+- Visualizar todas as unidades
+- Visualizar os quartos daquela unidade
+- Visualizar os detalhes do quarto
+- Criar reservas
+- Visualizar suas reservas
+- Deletar reservas
+
+### Funcionários
+
+- Criar e editar unidades 
+- Visualizar todos os quartos
+- Criar e editar quartos
+- Visualizar todas as reservas
 
 ## Rotas
 
@@ -16,7 +34,7 @@ API desenvolvida com nodeJS, focada no sistema para um hotel tanto para parte ad
 ```
  As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                           |
+| Parâmetros   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `name` | `string` | **Obrigatório**. |
 | `email` | `string` | **Obrigatório**.|
@@ -30,7 +48,7 @@ API desenvolvida com nodeJS, focada no sistema para um hotel tanto para parte ad
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parâmetros   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `email`      | `string` | **Obrigatório**.|
 | `password`      | `string` | **Obrigatório**.|
@@ -104,7 +122,7 @@ export default {
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parâmetros   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `name`      | `string` | **Obrigatório**. |
 | `address`      | `string` | **Obrigatório**. |
@@ -117,7 +135,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parâmetros   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `integer` | **Obrigatório**. O ID da unidade que você deseja. |
 | `name`      | `string` | **Opcional**. |
@@ -139,7 +157,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parâmetros   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `name`      | `string` | **Obrigatório**. |
 | `price`      | `integer` | **Obrigatório**. |
@@ -156,7 +174,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parâmetros   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `string` | **Obrigatório**.O ID do quarto que deseja alterar. |
 | `name`      | `string` | **Opcional**. |
@@ -170,14 +188,14 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 **Observação**: O id deve ser passado na requisição como route params.
 
 
-#### Criar reservas
+#### Criar reserva
 
 ```bash
   POST /reservation
 ```
 As informações devem ser passadas dentro do corpo(body) da requisição.
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parâmetros   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `check_in`      | `date` | **Obrigatório**.|
 | `check_out`      | `date` | **Obrigatório**.|
@@ -221,7 +239,7 @@ yarn - instalação opcional.
 
 ### Criando container do postgres
 
-**Observação**: Lembrando que precisa estar com o aplicativo do docker aberto na sua maquina, antes de executar o comando abaixo.
+**Observação**: É necessário estar com o aplicativo do docker aberto na sua maquina, antes de executar o comando abaixo.
 
 ```bash
 docker run --name hotel-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
@@ -252,7 +270,7 @@ docker run --name hotel-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d p
 ```bash
 npx sequelize db:migrate ou yarn sequelize db:migrate
 ```
-**Observação**: Lembre-se que é necessário criar um banco de dados antes e em seguida insira as informações do seu banco, dentro de ./src/config/database.js .
+**Observação**: É necessário criar um banco de dados antes e em seguida insira as informações do seu banco, dentro de ./src/config/database.js .
 
 Exemplo:
 
@@ -277,7 +295,7 @@ module.exports = {
   npm run dev ou yarn dev
 ```
 
-**baseUrl** : http://localhost:3001
+### **baseUrl** : http://localhost:3001
 
 
 ## Tecnologias utilizadas 👨🏻‍💻
