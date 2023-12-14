@@ -264,7 +264,8 @@ docker run --name hotel-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d p
 ```
 
 
-### Rodando as migrations para que o sequelize crie as tabelas no banco de dados.
+### Rodando as migrations 
+Esse comando é responsável por criar as tabelas no banco de dados.
 
 
 ```bash
@@ -288,6 +289,12 @@ module.exports = {
   },
 }
 ```
+#### Rodando comando seed
+Esse comando será responsável por inserir os dados de um usuário administrador na tabela users.
+
+```bash
+npx sequelize db:seed:all ou yarn sequelize db:seed:all
+```
 
 ### Inicie o servidor
 
@@ -295,7 +302,16 @@ module.exports = {
   npm run dev ou yarn dev
 ```
 
-### **baseUrl** : http://localhost:3001
+
+### Dados de acesso
+
+**baseUrl** : http://localhost:3001
+
+**Usuário Administrador**
+
+**Email** : adm@adm.com
+
+**Senha** : 123456
 
 
 ## Tecnologias utilizadas 👨🏻‍💻
