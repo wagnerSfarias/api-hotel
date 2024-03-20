@@ -237,7 +237,10 @@ Antes de começar, você precisa ter o Git, Node e Docker instalados.
 
 yarn - instalação opcional.
 
-### Criando container do postgres
+### Criando contêiner
+
+Nesta aplicação, estou utilizando o banco de dados PostgreSQL para armazenar os dados. Abaixo, estão as instruções sobre como subir um contêiner do banco em sua máquina.
+
 
 **Observação**: É necessário estar com o aplicativo do docker aberto na sua maquina, antes de executar o comando abaixo.
 
@@ -325,3 +328,4 @@ npx sequelize db:seed:all ou yarn sequelize db:seed:all
 - jsonwebtoken
 - bcrypt
 - Docker
+- PostgreSQL
