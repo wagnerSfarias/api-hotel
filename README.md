@@ -98,7 +98,8 @@ Resposta :
 
 ### TOKEN 
 
-As rotas abaixo exigem de um token JWT, que é fornecido quando o usuário faz logon.
+As rotas abaixo exigem de um token JWT, que deve ser passado pelo
+`Bearer Token` como o tipo de autenticação, que é fornecido quando o usuário faz logon.
 
 **Observação**: Para maior segurança, lembre-se de gerar um hash de senha pra seu token e insira no arquivo 
 /src/config/auth.js.
@@ -217,7 +218,7 @@ As informações devem ser passadas dentro do corpo(body) da requisição.
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `user_id`      | `string` | **Obrigatório**. O ID do usuário que é passado pelo token. |
+| `user_id`      | `string` | **Obrigatório**. Recebe automaticamente o ID do usuário que esta logado na aplicação. |
 
 #### Deletar reserva
 
@@ -308,7 +309,7 @@ npx sequelize db:seed:all ou yarn sequelize db:seed:all
 
 ### Dados de acesso
 
-**baseUrl** : http://localhost:3001
+**baseURL** : http://localhost:3001
 
 **Usuário Administrador**
 
@@ -324,8 +325,9 @@ npx sequelize db:seed:all ou yarn sequelize db:seed:all
 - UUID
 - Sequelize
 - Multer
-- Yup
-- jsonwebtoken
 - bcrypt
+- Yup
+- Autenticação JWT
 - Docker
 - PostgreSQL
+- Eslint / Prettier
