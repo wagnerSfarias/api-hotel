@@ -22,16 +22,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      url_banner: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      url_left: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      url_right: {
-        type: Sequelize.STRING,
+      path: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: false,
       },
       created_at: {

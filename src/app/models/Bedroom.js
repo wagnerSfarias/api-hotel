@@ -7,25 +7,14 @@ class Bedroom extends Model {
         name: Sequelize.STRING,
         price: Sequelize.INTEGER,
         qtd_people: Sequelize.INTEGER,
-        url_banner: Sequelize.STRING,
-        url_left: Sequelize.STRING,
-        url_right: Sequelize.STRING,
+        path: Sequelize.ARRAY(Sequelize.STRING),
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `http://localhost:3001/bedroom-file/${this.url_banner}`
-          },
-        },
-        url_l: {
-          type: Sequelize.VIRTUAL,
-          get() {
-            return `http://localhost:3001/bedroom-file/${this.url_left}`
-          },
-        },
-        url_r: {
-          type: Sequelize.VIRTUAL,
-          get() {
-            return `http://localhost:3001/bedroom-file/${this.url_right}`
+            const result = this.path.map((file) => {
+              return `http://localhost:3001/bedroom-file/${file}`
+            })
+            return result
           },
         },
       },
