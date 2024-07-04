@@ -30,7 +30,7 @@ class BedroomController {
           if (err) {
             console.log('Erro', err)
           }
-          console.log(`${file.filename}, was deleted`)
+          console.log(`${file.filename}, was deleted.`)
         })
       })
 
@@ -39,9 +39,7 @@ class BedroomController {
         .json({ error: 'three "file" fields are required' })
     }
 
-    const url_banner = request.files[0].filename
-    const url_left = request.files[1].filename
-    const url_right = request.files[2].filename
+    const path = request.files.map((file) => file.filename)
 
     const { name, price, qtd_people, unit_id } = request.body
 
@@ -49,9 +47,7 @@ class BedroomController {
       name,
       price,
       qtd_people,
-      url_banner,
-      url_left,
-      url_right,
+      path,
       unit_id,
     })
 
@@ -109,18 +105,13 @@ class BedroomController {
 
     const { id } = request.params
 
-    let url_banner
-    let url_left
-    let url_right
-    if (request.files.image) {
-      url_banner = request.files.image[0].filename
-    }
-    if (request.files.image_l) {
-      url_left = request.files.image_l[0].filename
-    }
-    if (request.files.image_r) {
-      url_right = request.files.image_r[0].filename
-    }
+    const { image, image_l, image_r } = request.files
+
+    const urls = [
+      image?.[0].filename,
+      image_l?.[0].filename,
+      image_r?.[0].filename,
+    ]
 
     const bedroom = await Bedroom.findByPk(id)
 
@@ -129,14 +120,28 @@ class BedroomController {
         .status(401)
         .json({ error: 'Make sure your bedroom ID is correct' })
     }
+
+    const path = urls.map((test, index) => {
+      if (test) {
+        unlink(`uploads/${bedroom.path[index]}`, (err) => {
+          if (err) {
+            console.log('Erro', err)
+          }
+          console.log(`${bedroom.path[index]}, was deleted.`)
+        })
+
+        return test
+      } else {
+        return bedroom.path[index]
+      }
+    })
+
     await Bedroom.update(
       {
         name,
         price,
         qtd_people,
-        url_banner,
-        url_left,
-        url_right,
+        path,
         unit_id,
       },
       {
