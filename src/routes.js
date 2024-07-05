@@ -2,6 +2,7 @@ import { Router } from 'express'
 import multer from 'multer'
 import multerConfig from './config/multer'
 import authMiddlewares from './app/middlewares/auth'
+import authAdminMiddlewares from './app/middlewares/authAdmin'
 
 import UserController from './app/controllers/UserController'
 import SessionController from './app/controllers/SessionController'
@@ -26,10 +27,16 @@ routes.get('/unit/bedrooms', ListBedroomByUnitControlller.index)
 routes.get('/bedroom/:id', BedroomController.show)
 
 routes.use(authMiddlewares)
+routes.get('/bedrooms', BedroomController.index)
+
+routes.post('/reservation', ReservationController.store)
+routes.get('/user/reservations', ListReservationByUserController.index)
+routes.delete('/reservation/:id', ReservationController.delete)
+
+routes.use(authAdminMiddlewares)
 routes.post('/unit', upload.single('file'), UnitController.store)
 routes.put('/unit/:id', upload.single('file'), UnitController.update)
 
-routes.get('/bedrooms', BedroomController.index)
 routes.post('/bedroom', upload.array('file', 3), BedroomController.store)
 routes.put(
   '/bedroom/:id',
@@ -40,10 +47,6 @@ routes.put(
   ]),
   BedroomController.update,
 )
-
-routes.post('/reservation', ReservationController.store)
 routes.get('/reservations', ReservationController.index)
-routes.get('/user/reservations', ListReservationByUserController.index)
-routes.delete('/reservation/:id', ReservationController.delete)
 
 export default routes
