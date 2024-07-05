@@ -1,7 +1,6 @@
 import * as Yup from 'yup'
 import Bedroom from '../models/Bedroom'
 import Unit from '../models/Unit'
-import User from '../models/User'
 import { unlink } from 'node:fs'
 
 class BedroomController {
@@ -17,11 +16,6 @@ class BedroomController {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
       return response.status(400).json({ error: err.errors })
-    }
-
-    const { admin: isAdmin } = await User.findByPk(request.userId)
-    if (!isAdmin) {
-      return response.status(401).json()
     }
 
     if (request.files.length !== 3) {
@@ -93,12 +87,6 @@ class BedroomController {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
       return response.status(400).json({ error: err.errors })
-    }
-
-    const { admin: isAdmin } = await User.findByPk(request.userId)
-
-    if (!isAdmin) {
-      return response.status(401).json({ error: 'no authorization' })
     }
 
     const { name, price, qtd_people, unit_id } = request.body

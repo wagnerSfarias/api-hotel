@@ -1,6 +1,5 @@
 import * as Yup from 'yup'
 import Unit from '../models/Unit'
-import User from '../models/User'
 import { unlink } from 'node:fs'
 
 class UnitController {
@@ -13,11 +12,6 @@ class UnitController {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
       return response.status(400).json({ error: err.errors })
-    }
-
-    const { admin: isAdmin } = await User.findByPk(request.userId)
-    if (!isAdmin) {
-      return response.status(401).json()
     }
 
     if (!request.file) {
@@ -63,12 +57,6 @@ class UnitController {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
       return response.status(400).json({ error: err.errors })
-    }
-
-    const { admin: isAdmin } = await User.findByPk(request.userId)
-
-    if (!isAdmin) {
-      return response.status(401).json()
     }
 
     const { name, address } = request.body
