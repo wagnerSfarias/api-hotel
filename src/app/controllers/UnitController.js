@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import Unit from '../models/Unit'
-import { unlink } from 'node:fs'
+import deleteFiles from '../utils/deleteFiles'
 
 class UnitController {
   async store(request, response) {
@@ -8,9 +8,13 @@ class UnitController {
       name: Yup.string().required(),
       address: Yup.string().required(),
     })
+
+    const { filename } = request.file
+
     try {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
+      deleteFiles(filename)
       return response.status(400).json({ error: err.errors })
     }
 
@@ -18,7 +22,6 @@ class UnitController {
       return response.status(400).json({ error: 'file is a required field' })
     }
 
-    const { filename: url_banner } = request.file
     const { name, address } = request.body
 
     const unitExists = await Unit.findOne({
@@ -26,17 +29,12 @@ class UnitController {
     })
 
     if (unitExists) {
-      unlink(`uploads/${url_banner}`, (err) => {
-        if (err) {
-          console.log('Erro', err)
-        }
-        console.log(`${url_banner}, was deleted`)
-      })
+      deleteFiles(filename)
 
       return response.status(400).json({ error: 'Unit already exist' })
     }
 
-    const unit = await Unit.create({ name, address, url_banner })
+    const unit = await Unit.create({ name, address, url_banner: filename })
 
     return response.json(unit)
   }
@@ -53,6 +51,8 @@ class UnitController {
       address: Yup.string(),
     })
 
+    const { filename } = request.file
+
     try {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
@@ -62,14 +62,11 @@ class UnitController {
     const { name, address } = request.body
     const { id } = request.params
 
-    let path
-    if (request.file) {
-      path = request.file.filename
-    }
-
     const unit = await Unit.findByPk(id)
 
     if (!unit) {
+      deleteFiles(filename)
+
       return response
         .status(401)
         .json({ error: 'Make sure your unit ID is correct' })
@@ -81,15 +78,20 @@ class UnitController {
       })
 
       if (unitExists) {
+        deleteFiles(filename)
         return response.status(400).json({ error: 'Unit already exist' })
       }
+    }
+
+    if (request.file) {
+      deleteFiles(unit.url_banner)
     }
 
     await Unit.update(
       {
         name,
         address,
-        url_banner: path,
+        url_banner: filename,
       },
       {
         where: { id },

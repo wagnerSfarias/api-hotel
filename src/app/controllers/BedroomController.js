@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import Bedroom from '../models/Bedroom'
 import Unit from '../models/Unit'
-import { unlink } from 'node:fs'
+import deleteFiles from '../utils/deleteFiles'
 
 class BedroomController {
   async store(request, response) {
@@ -15,18 +15,12 @@ class BedroomController {
     try {
       await schema.validateSync(request.body, { abortEarly: false })
     } catch (err) {
+      request.files.map((file) => deleteFiles(file.filename))
       return response.status(400).json({ error: err.errors })
     }
 
     if (request.files.length !== 3) {
-      request.files.map((file) => {
-        return unlink(`uploads/${file.filename}`, (err) => {
-          if (err) {
-            console.log('Erro', err)
-          }
-          console.log(`${file.filename}, was deleted.`)
-        })
-      })
+      request.files.map((file) => deleteFiles(file.filename))
 
       return response
         .status(400)
@@ -104,6 +98,8 @@ class BedroomController {
     const bedroom = await Bedroom.findByPk(id)
 
     if (!bedroom) {
+      urls.map((file) => deleteFiles(file))
+
       return response
         .status(401)
         .json({ error: 'Make sure your bedroom ID is correct' })
@@ -111,12 +107,7 @@ class BedroomController {
 
     const path = urls.map((test, index) => {
       if (test) {
-        unlink(`uploads/${bedroom.path[index]}`, (err) => {
-          if (err) {
-            console.log('Erro', err)
-          }
-          console.log(`${bedroom.path[index]}, was deleted.`)
-        })
+        deleteFiles(bedroom.path[index])
 
         return test
       } else {
